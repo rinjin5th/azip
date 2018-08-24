@@ -57,8 +57,6 @@ func compress(filename string) error {
 		return err
 	}
 
-	zipw.Flush()
-
 	file,err := os.Open(filename)
 	if err != nil {
 		return err
@@ -66,6 +64,8 @@ func compress(filename string) error {
 	defer file.Close()
 
 	_, err = io.Copy(w, file)
+
+	zipw.Flush()
 
 	return err
 }
